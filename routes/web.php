@@ -30,11 +30,11 @@ Route::post('/Logout', [LoginController::class, 'logout']);
 
 // Route::get('/Admin', [AdminController::class, 'index'])->middleware('auth');
 Route::get('/Admin/slug', [AdminController::class, 'slug'])->middleware('auth');
-Route::get('/Admin', function () {
-    return view('Admin.Index');
-})->middleware('auth');
+// Route::get('/Admin', function () {
+//     return view('Admin.Index');
+// })->middleware('auth');
 
-Route::resource('/Admin/Post', AdminController::class)->middleware('auth');
+Route::resource('/Admin', AdminController::class)->middleware('auth');
 
 
 Route::get('/Admin_charts', function () {
