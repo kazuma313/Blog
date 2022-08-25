@@ -124,27 +124,27 @@ class AdminController extends Controller
     {
         //
         // dd('percobaan update');        
-        // $rules =[
-        //     'judul' => 'required|min:10',
-        //     // 'slug' => 'required|min:10',
-        //     'isi' => 'required|min:300'
-        // ];
+        $rules =[
+            'judul' => 'required|min:10',
+            // 'slug' => 'required|min:10',
+            'isi' => 'required|min:300'
+        ];
 
-        // if($request->slug != $Admin->slug){
-        //     $rules['slug'] = 'required|unique:kontens';
-        // }
+        if($request->slug != $Admin->slug){
+            $rules['slug'] = 'required|unique:kontens';
+        }
 
-        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
-        // $validatedData['about_id'] = auth()->user()->id;
-        // $validatedData['excerpt'] = Str::limit(strip_tags($request->isi), 200, '...');
+        $validatedData['about_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->isi), 200, '...');
 
 
 
-        // // return $validation;
-        // Konten::where('id', $Admin->id)->update($validatedData);
+        // return $validation;
+        Konten::where('id', $Admin->id)->update($validatedData);
 
-        // return redirect('/Admin')->with('success', 'Post Telah di update');
+        return redirect('/Admin')->with('success', 'Post Telah di update');
 
     }
 
