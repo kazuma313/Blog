@@ -22,8 +22,6 @@
 
                         {!! $post->isi !!}
 
-
-
                     </div>
                 </main>
 

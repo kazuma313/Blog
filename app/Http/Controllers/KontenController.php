@@ -12,7 +12,7 @@ class KontenController extends Controller
         return view('index', [
             'tema' => 'Welcome Back',
             'backgroud' => asset('assets/img/home-bg.jpg'),
-            'blog' => Konten::all()->sortDesc(),
+            'blog' => Konten::latest()->paginate(6),
             'nama' =>About::with('Kontens')->first()
             // 'socialMedia' => About::with('SocialMedias')->get()->first()->SocialMedias()
             ]

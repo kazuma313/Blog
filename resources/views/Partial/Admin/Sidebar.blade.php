@@ -8,10 +8,11 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading">Interface</div>
-                <a class="nav-link" href="/Admin/Post">
+                <a class="nav-link" href="/Admin/">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Post
                 </a>
+
                 <a class="nav-link" href="charts.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     About
