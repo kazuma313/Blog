@@ -16,8 +16,8 @@ class AboutFactory extends Factory
         return [
             //
             'isi' => $this->faker->paragraph(10, true),
-            
-            'nama' => $this->faker->firstName()
+            'user_id' => rand(1,3)
+            // 'nama' => $this->faker->firstName()
         ];
     }
 }
