@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto;
 use App\Models\Konten;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -55,6 +56,7 @@ class AdminController extends Controller
     {
         //
 
+        // return $request->file('gambar')->store('uploaded-file');
 
         $validation = $request->validate([
             'judul' => 'required|min:10',
@@ -67,10 +69,14 @@ class AdminController extends Controller
         $validation['about_id'] = auth()->user()->id;
         $validation['excerpt'] = Str::limit(strip_tags($request->isi), 200, '...');
 
+        $validation_gambar['about_id'] = auth()->user()->id;
+        $validation_gambar['foto'] = $request->file('gambar')->store('uploaded-file');
+        $validation_gambar['konten_id'] = rand(1,3);
 
-
-        // return $validation;
+        // return $validation_gambar;
         Konten::create($validation);
+        Foto::create($validation_gambar);
+
 
         return redirect('/Admin')->with('success', 'Post yang baru telah di tambahkan');
     }

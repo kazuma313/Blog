@@ -18,7 +18,7 @@ class CreateFotosTable extends Migration
             $table->id();
             $table->foreignId('about_id')->nullable();
             $table->foreignId('konten_id')->nullable();
-            $table->string('foto', 30);
+            $table->string('foto', 200);
             $table->timestamps();
         });
     }

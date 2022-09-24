@@ -15,10 +15,10 @@ class FotoSeeder extends Seeder
     public function run()
     {
         //
-        // Foto::create(['about_id' => 1,
-        // 'konten_id' => 1,
+    //     Foto::create(['about_id' => 1,
+    //     'konten_id' => 1,
 
-        // 'foto' => 'link foto about 3 ', 
+    //     'foto' => 'link foto about 3 ', 
        
     // ]);
 

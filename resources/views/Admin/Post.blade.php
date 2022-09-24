@@ -24,13 +24,12 @@
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>{{ session('success') }}</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
 
 
-                        <form class="row g-3" method="post" action="/Admin">
+                        <form class="row g-3" method="post" action="/Admin" enctype="multipart/form-data">
                             @csrf
                             {{-- <div class="mb-1">
                                 <label for="about_id" class="form-label">User ID</label>
@@ -46,8 +45,8 @@
 
                             <div class="mb-1">
                                 <label for="judul" class="form-label">Judul</label>
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                                    name="judul" placeholder="Judul" value="{{ old('judul') }}" required>
+                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
+                                    id="judul" name="judul" placeholder="Judul" value="{{ old('judul') }}" required>
                                 @error('judul')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -56,12 +55,20 @@
 
                             <div class="mb-1">
                                 <label for="slug" class="form-label">slug</label>
-                                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                                    name="slug" value="{{ old('slug') }}" readonly>
+                                <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                    id="slug" name="slug" value="{{ old('slug') }}" readonly>
                                 @error('slug')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
+
+                            <div class="mb-1">
+                                <label for="gambar">Input Gambar</label>
+                                <br>
+                                <input type="file" class="form-control-file" id="gambar" name="gambar">
+                            </div>
+
 
                             {{-- <div class="mb-1">
                                 <label for="Excerpt" class="form-label">Excerpt</label>
@@ -130,8 +137,7 @@
                                             <a href="Admin/{{ $konten->slug }}/edit" class="badge bg-success"><i
                                                     class="fas fa-pencil-alt"></i></a>
 
-                                            <form action="/Admin/{{ $konten->slug }}" method="post"
-                                                class="d-inline">
+                                            <form action="/Admin/{{ $konten->slug }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
 

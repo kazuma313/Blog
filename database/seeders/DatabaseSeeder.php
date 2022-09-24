@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             KontenSeeder::class,
             MasukanSeeder::class,
             SocialMediaSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
