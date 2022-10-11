@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use App\Models\Konten;
+use App\Models\About;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AdminController extends Controller
@@ -23,7 +25,8 @@ class AdminController extends Controller
         return view(
             'Admin.Post',
             [
-                'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                // 'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                'kontens' => About::with('kontens')->find(auth()->user()->id)->kontens
             ]
 
         );
@@ -40,7 +43,8 @@ class AdminController extends Controller
         return view(
             'Admin.Post',
             [
-                'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                // 'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                'kontens' => About::with('kontens')->find(auth()->user()->id)->kontens
             ]
 
         );
@@ -94,7 +98,8 @@ class AdminController extends Controller
             'Admin.View',
             [
                 'post' => $Admin,
-                'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                // 'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                'kontens' => About::with('kontens')->find(auth()->user()->id)->kontens
             ]
 
         );
@@ -113,7 +118,7 @@ class AdminController extends Controller
             'Admin.Edit',
             [
                 'post' => $Admin,
-                'kontens' => Konten::where('about_id', auth()->user()->id)->get()
+                'kontens' => About::with('kontens')->find(auth()->user()->id)->kontens
             ]
 
         );
@@ -145,10 +150,13 @@ class AdminController extends Controller
         $validatedData['about_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->isi), 200, '...');
 
-
+        $validation_gambar['about_id'] = auth()->user()->id;
+        $validation_gambar['foto'] = $request->file('gambar')->store('uploaded-file');
+        $validation_gambar['konten_id'] = rand(1,3);
 
         // return $validation;
         Konten::where('id', $Admin->id)->update($validatedData);
+        Foto::where('konten_id', $Admin->id)->where('about_id', auth()->user()->id)->update($validation_gambar);
 
         return redirect('/Admin')->with('success', 'Post Telah di update');
 
@@ -163,6 +171,11 @@ class AdminController extends Controller
     public function destroy(Konten $Admin)
     {
         //
+        if($Admin->gambar)
+        {
+            Storage::delete($Admin->gambar);
+        }
+
         Konten::destroy($Admin->id);
 
         return redirect('/Admin')->with('success', 'Post Telah Dihapus');

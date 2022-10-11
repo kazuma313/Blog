@@ -66,7 +66,13 @@
                             <div class="mb-1">
                                 <label for="gambar">Input Gambar</label>
                                 <br>
-                                <input type="file" class="form-control-file" id="gambar" name="gambar">
+                                <img class="img-preview img-fluid">
+                                <br>
+                                <input type="file" class="form-control-file @error('gambar') is-invalid @enderror"
+                                    id="gambar" name="gambar" value="{{ old('gambar') }}" onchange="lihatImage()">
+                                @error('gambar')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
 
@@ -113,6 +119,22 @@
                             document.addEventListener("trix-file-accept", (e) => {
                                 e.preventDefault()
                             })
+
+                            function lihatImage() {
+
+                                const image = document.querySelector('#gambar');
+                                const imagePreview = document.querySelector('.img-preview');
+
+                                imagePreview.style.display = 'block';
+
+                                const oFReader = new FileReader();
+                                oFReader.readAsDataURL(image.files[0])
+
+                                oFReader.onload = function(OFREvent) {
+                                    imagePreview.src = OFREvent.target.result;
+                                }
+
+                            }
                         </script>
 
                         <table class="table table-hover">

@@ -29,7 +29,7 @@
                             </div>
                         @endif
 
-                        <form class="row g-3" method="POST" action="/Admin/{{ $post->slug }}">
+                        <form class="row g-3" method="POST" action="/Admin/{{ $post->slug }}" enctype="multipart/form-data">
                           @method('PATCH')  
                             @csrf
                             {{-- <div class="mb-1">
@@ -63,6 +63,14 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                                 
+                            </div>
+
+                            <div class="mb-1">
+                                <label for="gambar">Input Gambar</label>
+                                <br>
+                                <img class="img-preview img-fluid">
+                                <br>
+                                <input type="file" class="form-control-file" id="gambar" name="gambar" onchange="lihatImage()">
                             </div>
 
                             {{-- <div class="mb-1">
@@ -108,6 +116,25 @@
                             document.addEventListener("trix-file-accept", (e) => {
                                 e.preventDefault()
                             })
+
+                            function lihatImage()
+                            {
+
+                                const image = document.querySelector('#gambar');
+                                const imagePreview = document.querySelector('.img-preview');
+
+                                imagePreview.style.display = 'block';
+
+                                const oFReader = new FileReader();
+                                oFReader.readAsDataURL(image.files[0])
+
+                                oFReader.onload = function(OFREvent)
+                                {
+                                    imagePreview.src = OFREvent.target.result;
+                                }
+
+                            }
+
                         </script>
 
 
