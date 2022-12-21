@@ -1,5 +1,6 @@
 @extends('Layout.Admin.Admin')
 
+@section('title', 'Login')
 
 @section('isi')
 
@@ -63,6 +64,7 @@
 
                                                 <button class="btn btn-primary" type="submit">Login</button>
                                             </div>
+                                            
                                         </form>
 
                                     </div>

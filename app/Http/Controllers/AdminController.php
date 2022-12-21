@@ -75,7 +75,9 @@ class AdminController extends Controller
 
         $validation_gambar['about_id'] = auth()->user()->id;
         $validation_gambar['foto'] = $request->file('gambar')->store('uploaded-file');
-        $validation_gambar['konten_id'] = rand(1,3);
+        $validation_gambar['konten_id'] = Konten::latest()->first()->id + 1;
+
+        // Konten::latest()->first()->id
 
         // return $validation_gambar;
         Konten::create($validation);
@@ -170,13 +172,22 @@ class AdminController extends Controller
      */
     public function destroy(Konten $Admin)
     {
-        //
-        if($Admin->gambar)
-        {
-            Storage::delete($Admin->gambar);
-        }
+        $KontenFoto = array_values($Admin->Fotos->where('about_id', auth()->user()->id)->all());
+        $Idfoto = array();
 
-        Konten::destroy($Admin->id);
+        foreach ($KontenFoto as $KF) 
+        {
+
+            array_push($Idfoto,$KF->id);
+
+            if($KF->foto)
+            {
+                Storage::delete($KF->foto);
+            }
+        };
+        
+
+        Foto::destroy($Idfoto);
 
         return redirect('/Admin')->with('success', 'Post Telah Dihapus');
     }

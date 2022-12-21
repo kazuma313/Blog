@@ -23,6 +23,8 @@ use Ramsey\Collection\Map\AbstractMap;
 
 // admin
 Route::get('/Login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+
+Route::post('/Register', [LoginController::class, 'store']);
 Route::get('/Register', [LoginController::class, 'register'])->name('register')->middleware('guest');
 
 Route::post('/Login', [LoginController::class, 'authenticate']);

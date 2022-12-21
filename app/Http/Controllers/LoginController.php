@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -18,6 +20,29 @@ class LoginController extends Controller
     {
         return view('Admin.Register');
     }
+    
+    public function store(Request $request)
+    {
+        
+
+        $validation = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required|min:4',
+            'name' => 'required|min:6'
+        ]);
+
+        // dd($validation);
+        $validation['password'] = Hash::make($request->inputPassword);
+
+        
+
+
+        User::create($validation);
+
+        return redirect('/Login');
+        
+    }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([

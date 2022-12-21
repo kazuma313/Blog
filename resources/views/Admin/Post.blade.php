@@ -63,7 +63,7 @@
                             </div>
 
 
-                            <div class="mb-1">
+                            <div class="mb-1" id="form-gambar">
                                 <label for="gambar">Input Gambar</label>
                                 <br>
                                 <img class="img-preview img-fluid">
@@ -75,6 +75,10 @@
                                 @enderror
                             </div>
 
+                            <button class="btn btn-primary" type="button" onclick="copyForm()">Tambah</button>
+
+                            <div id="form-tambahan">
+                            </div>
 
                             {{-- <div class="mb-1">
                                 <label for="Excerpt" class="form-label">Excerpt</label>
@@ -119,6 +123,16 @@
                             document.addEventListener("trix-file-accept", (e) => {
                                 e.preventDefault()
                             })
+
+
+                            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+                            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
+                            
+                            function copyForm(){
+                                $("#form-gambar")
+                                .clone()
+                                .appendTo("#form-tambahan")
+                            }
 
                             function lihatImage() {
 
